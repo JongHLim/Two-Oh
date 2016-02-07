@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="check_in">Check-in Inventory</string>
     <string name="check_out">Check-out Inventory</string>
+    <string name="main_menu">Main Menu</string>
+    <color name="blue">#FF33B5E5</color>
 </resources>

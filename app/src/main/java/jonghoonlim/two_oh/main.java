@@ -1,16 +1,41 @@
 package jonghoonlim.two_oh;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-public class main extends ActionBarActivity {
+public class main extends Activity {
+
+    private Button checkIn;
+    private Button checkOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // open the check-in page
+        checkIn = (Button) findViewById(R.id.checkIn);
+        checkIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent checkInIntent = new Intent(getApplication(), CheckIn.class);
+                startActivity(checkInIntent);
+            }
+        });
+
+        // open the check-in page
+        checkOut = (Button) findViewById(R.id.checkOut);
+        checkOut.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent checkOutIntent = new Intent(getApplication(), CheckOut.class);
+                startActivity(checkOutIntent);
+            }
+        });
     }
 
     @Override
