@@ -7,10 +7,37 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jonghoonlim.two_oh.main">
+    tools:context="jonghoonlim.two_oh.main"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:textSize="48sp"
+        android:id="@+id/textView"
+        android:layout_gravity="center_vertical"
+        android:layout_above="@+id/checkIn"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check_in"
+        android:id="@+id/checkIn"
+        android:layout_gravity="center_vertical"
+        android:layout_above="@+id/checkOut"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check_out"
+        android:id="@+id/checkOut"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="203dp" />
+
 </RelativeLayout>
