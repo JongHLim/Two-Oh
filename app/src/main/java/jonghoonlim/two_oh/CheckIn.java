@@ -24,7 +24,7 @@ public class CheckIn extends Activity {
         mainMenu = (Button) findViewById(R.id.main_menu);
         mainMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent mainMenuIntent = new Intent(getApplication(), main.class);
+                Intent mainMenuIntent = new Intent(getApplication(), Main.class);
                 startActivity(mainMenuIntent);
             }
         });

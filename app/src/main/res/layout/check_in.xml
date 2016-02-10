@@ -50,7 +50,8 @@
                     android:textSize="25dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -62,7 +63,8 @@
                     android:textSize="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -79,7 +81,8 @@
                     android:textSize="25dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -91,7 +94,8 @@
                     android:textSize="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -108,7 +112,8 @@
                     android:textSize="25dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -119,7 +124,8 @@
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -136,7 +142,8 @@
                     android:textSize="25dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -147,7 +154,8 @@
                     android:ems="10"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

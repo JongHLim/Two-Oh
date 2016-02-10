@@ -9,34 +9,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class main extends Activity {
+public class Main extends Activity implements View.OnClickListener {
 
     private Button checkIn;
     private Button checkOut;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // open the check-in page
+        // initialize the DatabaseHelper class to interact with the database
+        databaseHelper = new DatabaseHelper(this);
+
+        // open the check-in page\
         checkIn = (Button) findViewById(R.id.checkIn);
-        checkIn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent checkInIntent = new Intent(getApplication(), CheckIn.class);
-                startActivity(checkInIntent);
-            }
-        });
+        checkIn.setOnClickListener(this);
 
         // open the check-in page
-        checkOut = (Button) findViewById(R.id.checkOut);
-        checkOut.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        checkOut = (Button) this.findViewById(R.id.checkOut);
+        checkOut.setOnClickListener(this);
+    }
+
+     /*
+     * on click method to handle all button clicks within this layout
+     */
+    @Override
+    public void onClick (View v) {
+        switch (v.getId()) {
+            // if the user clicks the "Check-in inventory" button
+            case R.id.checkIn :
+                Intent checkInIntent = new Intent(getApplication(), CheckIn.class);
+                startActivity(checkInIntent);
+                break;
+            // if the user clicks the "Check-out inventory" button
+            case R.id.checkOut :
                 Intent checkOutIntent = new Intent(getApplication(), CheckOut.class);
                 startActivity(checkOutIntent);
-            }
-        });
+                break;
+            default :
+                break;
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
