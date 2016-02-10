@@ -5,4 +5,8 @@
     <string name="check_out">Check-out Inventory</string>
     <string name="main_menu">Main Menu</string>
     <color name="blue">#FF33B5E5</color>
+    <string name="ut_tag">UTTAG number</string>
+    <string name="check_in_date">Check-in date</string>
+    <string name="machine_type">Machine type</string>
+    <string name="operating_system">Operating system</string>
 </resources>

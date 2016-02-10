@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="jonghoonlim.two_oh.main"
     android:orientation="vertical"
-    android:background="@color/blue">
+    android:background="@drawable/ut_tower">
 
     <TextView
         android:layout_width="wrap_content"
