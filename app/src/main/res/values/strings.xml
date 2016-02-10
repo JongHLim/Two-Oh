@@ -9,4 +9,5 @@
     <string name="check_in_date">Check-in date</string>
     <string name="machine_type">Machine type</string>
     <string name="operating_system">Operating system</string>
+    <string name="submit">Submit</string>
 </resources>
