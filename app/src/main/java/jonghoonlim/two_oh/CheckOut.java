@@ -9,7 +9,7 @@ import android.widget.Button;
 /**
  * Created by Jong Hoon Lim on 2/7/2016.
  */
-public class CheckOut extends Activity {
+public class CheckOut extends Activity implements View.OnClickListener {
 
     private Button mainMenu;
 
@@ -20,13 +20,19 @@ public class CheckOut extends Activity {
 
         // open the check-in page
         mainMenu = (Button) findViewById(R.id.main_menu);
-        mainMenu.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        mainMenu.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.main_menu :
                 Intent mainMenuIntent = new Intent(getApplication(), Main.class);
                 startActivity(mainMenuIntent);
-            }
-        });
-
+                break;
+            default :
+                break;
+        }
     }
 
 }
