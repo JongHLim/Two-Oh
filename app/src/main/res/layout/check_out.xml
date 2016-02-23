@@ -9,4 +9,10 @@
         android:layout_height="wrap_content"
         android:text="@string/main_menu"
         android:id="@+id/main_menu" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+
 </LinearLayout>

@@ -20,6 +20,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
 
     private Button mainMenu;
     private Button submit;
+    private Button reset;
     private DatabaseHelper mDbHelper;
 
     // this is what will be inputted into the database
@@ -43,6 +44,8 @@ public class CheckIn extends Activity implements View.OnClickListener {
         mainMenu.setOnClickListener(this);
         submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(this);
+        reset = (Button) findViewById(R.id.reset);
+        reset.setOnClickListener(this);
 
         // interact with the database
         mDbHelper = new DatabaseHelper(this);
@@ -60,6 +63,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
             case R.id.main_menu :
                 Intent mainMenuIntent = new Intent(getApplication(), Main.class);
                 startActivity(mainMenuIntent);
+                mDbHelper.close();
                 break;
             case R.id.submit :
                 uttagString = uttagInput.getText().toString();
@@ -77,8 +81,18 @@ public class CheckIn extends Activity implements View.OnClickListener {
                             .setNeutralButton("Close", null).show();
                 }
                 break;
+            case R.id.reset :
+                resetFields();
+                break;
             default :
                 break;
         }
+    }
+
+    public void resetFields() {
+        uttagInput.setText("");
+        checkInDateInput.setText("");
+        machineTypeInput.setText("");
+        operatingSystemInput.setText("");
     }
 }

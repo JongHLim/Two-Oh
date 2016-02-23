@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 import java.util.ArrayList;
 
@@ -60,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("machineType", machineType);
         contentValues.put("operatingSystem", operatingSystem);
         long rowInserted = db.insert("inventory", null, contentValues);
+        // close the database
         return rowInserted;
     }
 
@@ -69,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getData(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from inventory where id="+id+"", null );
+        // close the database
         return res;
     }
 
