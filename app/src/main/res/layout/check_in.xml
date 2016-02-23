@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText"
+                    android:id="@+id/uttag_editText"
                     android:layout_gravity="right"
                     android:textSize="25dp"
                     android:layout_marginTop="10dp"
@@ -90,7 +90,6 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
                     android:ems="10"
                     android:id="@+id/date_editText"
                     android:layout_gravity="right"

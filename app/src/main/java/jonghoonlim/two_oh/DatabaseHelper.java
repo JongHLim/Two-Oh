@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /*
      * Insert a new inventory onto the SQLite database file / device
      */
-    public boolean insertInventory(Integer utTag, String checkInDate,
+    public long insertInventory(Integer utTag, String checkInDate,
                                    String machineType, String operatingSystem) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -59,8 +59,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("checkInDate", checkInDate);
         contentValues.put("machineType", machineType);
         contentValues.put("operatingSystem", operatingSystem);
-        db.insert("inventory", null, contentValues);
-        return true;
+        long rowInserted = db.insert("inventory", null, contentValues);
+        return rowInserted;
     }
 
     /*

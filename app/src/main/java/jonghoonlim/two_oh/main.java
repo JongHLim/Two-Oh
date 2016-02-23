@@ -13,7 +13,7 @@ public class Main extends Activity implements View.OnClickListener {
 
     private Button checkIn;
     private Button checkOut;
-    DatabaseHelper databaseHelper;
+    DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Main extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         // initialize the DatabaseHelper class to interact with the database
-        databaseHelper = new DatabaseHelper(this);
+        mDbHelper = new DatabaseHelper(this);
 
         // open the check-in page\
         checkIn = (Button) findViewById(R.id.checkIn);

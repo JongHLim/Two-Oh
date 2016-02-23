@@ -13,7 +13,6 @@ public final class FeedReaderContract {
 
     /* Inner class that defines the table contents */
     public static abstract class FeedEntry implements BaseColumns {
-        public static final String DATABASE_NAME = "UTexasInventory.db";
         public static final String INVENTORY_TABLE_NAME = "inventory";
         public static final String INVENTORY_COLUMN_UTTAG = "utTag";
         public static final String INVENTORY_COLUMN_CHECKINDATE = "checkInDate";
