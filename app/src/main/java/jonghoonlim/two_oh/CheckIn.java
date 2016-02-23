@@ -14,6 +14,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
 
     private Button mainMenu;
     private Button submit;
+    private DatabaseHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,9 @@ public class CheckIn extends Activity implements View.OnClickListener {
         mainMenu.setOnClickListener(this);
         submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(this);
+
+        // interact with the database
+        mydb = new DatabaseHelper(this);
     }
 
     @Override
