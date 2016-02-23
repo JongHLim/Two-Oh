@@ -14,45 +14,38 @@ import java.util.ArrayList;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "UTexasInventory.db";
-    public static final String INVENTORY_TABLE_NAME = "inventory";
-    public static final String INVENTORY_COLUMN_UTTAG = "utTag";
-    public static final String INVENTORY_COLUMN_CHECKINDATE = "checkInDate";
-    public static final String INVENTORY_COLUMN_MACHINETYPE = "machineType";
-    public static final String INVENTORY_COLUMN_OPERATINGSYSTEM = "operatingSystem";
+    private static final String TEXT_TYPE = " TEXT";
+    private static final String COMMA = ",";
+    private static final String SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME + " (" +
+                    FeedReaderContract.FeedEntry._ID + " INTEGER PRIMARY KEY," +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " integer" + COMMA +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE + TEXT_TYPE + COMMA +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE + TEXT_TYPE + COMMA +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM + TEXT_TYPE +
+            ")";
+    private static final String SQL_DELETE_ENTRIES =
+            "DROP TABLE IF EXISTS " + FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME;
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    /*
-     * Only runs when the database file did not exist and was just created
-     * If returned successfully, the database is assumed to be created with the requested
-     * version number
-     *
-     * ... do not catch SQLException here
-     */
-    @Override
-    public void onCreate(SQLiteDatabase db)
-    {
-        // "id integer primary key" auto increments
-        db.execSQL(
-                "create table inventory " +
-                        "(id integer primary key, utTag integer, checkInDate text, " +
-                        "machineType text, operatingSystem text)"
-        );
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_ENTRIES);
     }
 
-    /*
-     * only called when the database file exists but the stored version number is lower
-     * than requested in constructor
-     * Should update the table schema to the requested version
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        db.execSQL("DROP TABLE IF EXISTS inventory");
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
+    }
+
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
     }
 
     /*
@@ -112,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            uttags.add(res.getString(res.getColumnIndex(INVENTORY_COLUMN_UTTAG)));
+            uttags.add(res.getString(res.getColumnIndex(FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG)));
             res.moveToNext();
         }
         return uttags;
@@ -120,7 +113,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, INVENTORY_TABLE_NAME);
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME);
         return numRows;
     }
 }
