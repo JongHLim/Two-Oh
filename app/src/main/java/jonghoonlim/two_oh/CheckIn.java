@@ -77,7 +77,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
                     new AlertDialog.Builder(this).setTitle("Sucess!").setMessage("Inventory added successfully.")
                             .setNeutralButton("Close", null).show();
                 } else {
-                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory coule not be added.")
+                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory could not be added.")
                             .setNeutralButton("Close", null).show();
                 }
                 break;

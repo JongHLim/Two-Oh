@@ -18,6 +18,7 @@ public final class FeedReaderContract {
         public static final String INVENTORY_COLUMN_CHECKINDATE = "checkInDate";
         public static final String INVENTORY_COLUMN_MACHINETYPE = "machineType";
         public static final String INVENTORY_COLUMN_OPERATINGSYSTEM = "operatingSystem";
+        public static final String INVENTORY_COLUMN_CHECKEDIN = "checkedIn";
     }
 
 }

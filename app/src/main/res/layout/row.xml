@@ -14,14 +14,16 @@
             android:padding="10dip"
             android:text="UTTAG number:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green" />
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"/>
+            android:textColor="@color/orange"
+            android:textSize="18sp"/>
     </LinearLayout>
 
 
@@ -35,14 +37,16 @@
             android:padding="10dip"
             android:text="Check-in date:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green" />
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"/>
+            android:textColor="@color/orange"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -55,14 +59,16 @@
             android:padding="10dip"
             android:text="Machine type:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green" />
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"/>
+            android:textColor="@color/orange"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -75,14 +81,31 @@
             android:padding="10dip"
             android:text="Operating system:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green" />
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"/>
+        <RelativeLayout
             android:layout_height="wrap_content"
-            android:padding="10dip"
-            android:textStyle="bold"
-            android:textColor="@color/orange"/>
+            android:layout_width="match_parent">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:textSize="18sp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check-out"
+                android:id="@+id/row_check_out"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -25,7 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " integer" + COMMA +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE + TEXT_TYPE + COMMA +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE + TEXT_TYPE + COMMA +
-                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM + TEXT_TYPE +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM + TEXT_TYPE + COMMA +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKEDIN + TEXT_TYPE +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKEDIN + TEXT_TYPE +
             ")";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME;
@@ -60,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("checkInDate", checkInDate);
         contentValues.put("machineType", machineType);
         contentValues.put("operatingSystem", operatingSystem);
+        contentValues.put("checkedIn", "Y");
         long rowInserted = db.insert("inventory", null, contentValues);
         // close the database
         return rowInserted;
