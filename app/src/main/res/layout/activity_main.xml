@@ -19,44 +19,54 @@
         android:textSize="72sp"
         android:id="@+id/textView"
         android:layout_gravity="center"
-        android:layout_above="@+id/checkIn"
+        android:layout_above="@+id/add_new_main"
         android:layout_centerHorizontal="true"
         android:textColor="@color/orange"
         android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout"></LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/check_in"
-        android:id="@+id/checkIn"
-        android:layout_gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/checkOut"
-        android:layout_alignEnd="@+id/checkOut"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout"
-        android:textColor="@color/orange"
-        android:textStyle="bold"
-        android:textSize="24sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Inventory"
+            android:id="@+id/add_new_main"
+            android:layout_gravity="center"
+            android:layout_centerVertical="true"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/check_out"
-        android:id="@+id/checkOut"
-        android:layout_gravity="center"
-        android:layout_below="@+id/checkIn"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/orange"
-        android:textStyle="bold"
-        android:textSize="24sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-in Inventory"
+            android:id="@+id/check_in_main"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_below="@+id/add_new_main"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_out"
+            android:id="@+id/checkOut"
+            android:layout_gravity="center"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_below="@+id/check_in_main"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
 
 </RelativeLayout>

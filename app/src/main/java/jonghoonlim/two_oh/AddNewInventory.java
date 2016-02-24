@@ -17,7 +17,7 @@ import android.widget.Toast;
 /**
  * Created by Jong Hoon Lim on 2/7/2016.
  */
-public class CheckIn extends Activity implements View.OnClickListener {
+public class AddNewInventory extends Activity implements View.OnClickListener {
 
     private Button mainMenu;
     private Button submit;
@@ -38,7 +38,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.check_in);
+        setContentView(R.layout.add_new_inven);
 
         // for now disable landscape orientation
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -75,6 +75,12 @@ public class CheckIn extends Activity implements View.OnClickListener {
                     uttag = Integer.parseInt(uttagString);
                 } catch (NumberFormatException e){
                     // not an Integer
+                }
+                if (mDbHelper.duplicateInventory(uttag)) {
+                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory with " +
+                            "UTTAG number " + uttag + " already exists!")
+                            .setNeutralButton("Close", null).show();
+                    break;
                 }
                 if (mDbHelper.insertInventory(uttag, checkInDateInput.getText().toString(),
                         machineTypeInput.getText().toString(), operatingSystemInput.getText().toString()) != -1) {

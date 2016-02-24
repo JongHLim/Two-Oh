@@ -12,6 +12,17 @@
         android:textColor="@color/orange"
         android:textStyle="bold"/>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Inventory currently checked-in:"
+        android:textSize="24sp"
+        android:textColor="@color/orange"
+        android:textStyle="bold"
+        android:paddingLeft="5dp" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

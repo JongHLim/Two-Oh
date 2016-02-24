@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class Main extends Activity implements View.OnClickListener {
 
-    private Button checkIn;
+    private Button addNew;
     private Button checkOut;
     DatabaseHelper mDbHelper;
 
@@ -28,8 +28,8 @@ public class Main extends Activity implements View.OnClickListener {
         mDbHelper = new DatabaseHelper(this);
 
         // open the check-in page\
-        checkIn = (Button) findViewById(R.id.checkIn);
-        checkIn.setOnClickListener(this);
+        addNew = (Button) findViewById(R.id.add_new_main);
+        addNew.setOnClickListener(this);
 
         // open the check-in page
         checkOut = (Button) this.findViewById(R.id.checkOut);
@@ -43,8 +43,8 @@ public class Main extends Activity implements View.OnClickListener {
     public void onClick (View v) {
         switch (v.getId()) {
             // if the user clicks the "Check-in inventory" button
-            case R.id.checkIn :
-                Intent checkInIntent = new Intent(getApplication(), CheckIn.class);
+            case R.id.add_new_main :
+                Intent checkInIntent = new Intent(getApplication(), AddNewInventory.class);
                 startActivity(checkInIntent);
                 break;
             // if the user clicks the "Check-out inventory" button

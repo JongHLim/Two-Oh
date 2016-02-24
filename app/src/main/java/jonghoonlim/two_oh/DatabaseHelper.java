@@ -68,32 +68,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowInserted;
     }
 
-    /*
-     * Get data with specific id
-     */
-    public Cursor getData(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery("select * from inventory where id=" + id + "", null);
-        // close the database
-        return res;
-    }
-
-    /*
-     * Update data at specific id
-     */
-    public boolean updateInventory(Integer id, Integer utTag, String checkInDate,
-                                   String machineType, String operatingSystem) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("utTag", utTag);
-        contentValues.put("checkInDate", checkInDate);
-        contentValues.put("machineType", machineType);
-        contentValues.put("operatingSystem", operatingSystem);
-        db.update("inventory", contentValues, "id = ? ",
-                new String[] { Integer.toString(id) } );
-        return true;
-    }
-
     public Integer deleteInventory (Integer id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -131,5 +105,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update("inventory", contentValues, "uttag = ? ",
                 new String[] { Integer.toString(uttag) } );
         return true;
+    }
+
+    public boolean duplicateInventory(int uttag) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor =  db.rawQuery("select * from " + FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME
+                + " where " + FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG +
+                " = " + uttag, null);
+        // no record for given uttag
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+
+        cursor.close();
+        return true; // record exists for given uttag
     }
 }
