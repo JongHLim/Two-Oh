@@ -54,6 +54,8 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                 checkOut.setText("CHECKED-OUT");
                 checkOut.setEnabled(false);
 
+                mDbHelper.close();
+
             }
         });
     }

@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 /**
  * Created by Jong Hoon Lim on 2/7/2016.
@@ -57,6 +60,9 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
         // the fields to extract the data from
         uttagInput = (EditText) findViewById(R.id.uttag_editText);
         checkInDateInput = (EditText) findViewById(R.id.date_editText);
+
+        checkInDateInput.setText(getDate());
+
         machineTypeInput = (EditText) findViewById(R.id.machineType_editText);
         operatingSystemInput = (EditText) findViewById(R.id.operatingSystem_editText);
     }
@@ -101,8 +107,17 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
 
     public void resetFields() {
         uttagInput.setText("");
-        checkInDateInput.setText("");
+
+        checkInDateInput.setText(getDate());
+
         machineTypeInput.setText("");
         operatingSystemInput.setText("");
+    }
+
+    public String getDate() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
     }
 }

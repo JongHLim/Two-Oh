@@ -14,7 +14,6 @@ public class Main extends Activity implements View.OnClickListener {
     private Button addNew;
     private Button checkOut;
     private Button checkIn;
-    DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +22,6 @@ public class Main extends Activity implements View.OnClickListener {
 
         // for now, disable landscape orientation
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        // initialize the DatabaseHelper class to interact with the database
-        mDbHelper = new DatabaseHelper(this);
 
         // open the add new page
         addNew = (Button) findViewById(R.id.add_new_main);

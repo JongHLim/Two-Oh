@@ -54,6 +54,8 @@ public class CheckInCustomAdapter extends SimpleCursorAdapter {
                 checkIn.setText("CHECKED-IN");
                 checkIn.setEnabled(false);
 
+                mDbHelper.close();
+
             }
         });
     }
