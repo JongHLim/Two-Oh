@@ -73,7 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor getData(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from inventory where id="+id+"", null );
+        Cursor res =  db.rawQuery("select * from inventory where id=" + id + "", null);
         // close the database
         return res;
     }
@@ -121,5 +121,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME);
         return numRows;
+    }
+
+    // when a user checks out an item, set the checkedIn value as "N"
+    public boolean checkOut(int uttag) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("checkedIn", "N");
+        db.update("inventory", contentValues, "uttag = ? ",
+                new String[] { Integer.toString(uttag) } );
+        return true;
     }
 }

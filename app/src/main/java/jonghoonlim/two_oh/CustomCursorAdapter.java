@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.TextView;
  * Created by jhl2298 on 2/23/2016.
  */
 public class CustomCursorAdapter extends SimpleCursorAdapter {
+
+    private DatabaseHelper mDbHelper;
+    private SQLiteDatabase db;
 
     public CustomCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
@@ -34,8 +38,23 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
         checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext()).setTitle("YES!").setMessage("Check-out not ready... UTTAG Number: " +
-                        uttag.getText().toString()).setNeutralButton("Close", null).show();
+
+                mDbHelper = new DatabaseHelper(v.getContext());
+                int uttagNumber = -1;
+                try {
+                    uttagNumber = Integer.parseInt(uttag.getText().toString());
+                } catch (NumberFormatException e) {
+
+                }
+                if ( mDbHelper.checkOut(uttagNumber)) {
+                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Inventory with UTTAG Number of " +
+                            uttagNumber + " has been checked-out successfully.")
+                            .setNeutralButton("Close", null).show();
+                } else {
+                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-out unsuccessful!")
+                            .setNeutralButton("Close", null).show();
+                }
+
             }
         });
     }

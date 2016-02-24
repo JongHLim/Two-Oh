@@ -47,7 +47,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
         String sortOrder = FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " ASC";
 
         Cursor c = db.query(FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME, projection,
-                null, null, null, null, sortOrder);
+                "checkedIn=?", new String[]{"Y"}, null, null, sortOrder);
 
         list = (ListView) findViewById(R.id.listView);
         String[] from = new String[]{FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG,
