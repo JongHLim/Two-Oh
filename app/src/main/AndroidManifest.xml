@@ -20,6 +20,10 @@
 
         <activity
             android:name="jonghoonlim.two_oh.AddNewInventory"
+            android:label="Add New Inventory" />
+
+        <activity
+            android:name="jonghoonlim.two_oh.CheckIn"
             android:label="@string/check_in" />
 
         <activity

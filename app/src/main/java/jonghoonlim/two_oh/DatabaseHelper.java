@@ -107,6 +107,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    // when a user checks in an item, set the checkedIn value as "Y"
+    public boolean checkIn(int uttag) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("checkedIn", "Y");
+        db.update("inventory", contentValues, "uttag = ? ",
+                new String[] { Integer.toString(uttag) } );
+        return true;
+    }
+
     public boolean duplicateInventory(int uttag) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =  db.rawQuery("select * from " + FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME

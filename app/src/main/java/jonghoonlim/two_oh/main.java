@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +13,7 @@ public class Main extends Activity implements View.OnClickListener {
 
     private Button addNew;
     private Button checkOut;
+    private Button checkIn;
     DatabaseHelper mDbHelper;
 
     @Override
@@ -27,13 +27,18 @@ public class Main extends Activity implements View.OnClickListener {
         // initialize the DatabaseHelper class to interact with the database
         mDbHelper = new DatabaseHelper(this);
 
-        // open the check-in page\
+        // open the add new page
         addNew = (Button) findViewById(R.id.add_new_main);
         addNew.setOnClickListener(this);
 
         // open the check-in page
+        checkIn = (Button) this.findViewById(R.id.check_in_main);
+        checkIn.setOnClickListener(this);
+
+        // open the check-out page
         checkOut = (Button) this.findViewById(R.id.checkOut);
         checkOut.setOnClickListener(this);
+
     }
 
      /*
@@ -44,13 +49,17 @@ public class Main extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             // if the user clicks the "Check-in inventory" button
             case R.id.add_new_main :
-                Intent checkInIntent = new Intent(getApplication(), AddNewInventory.class);
-                startActivity(checkInIntent);
+                Intent addNewIntent = new Intent(getApplication(), AddNewInventory.class);
+                startActivity(addNewIntent);
                 break;
             // if the user clicks the "Check-out inventory" button
             case R.id.checkOut :
                 Intent checkOutIntent = new Intent(getApplication(), CheckOut.class);
                 startActivity(checkOutIntent);
+                break;
+            case R.id.check_in_main :
+                Intent checkInIntent = new Intent(getApplication(), CheckIn.class);
+                startActivity(checkInIntent);
                 break;
             default :
                 break;

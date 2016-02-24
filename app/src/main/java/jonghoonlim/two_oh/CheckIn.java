@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-
 /**
- * Created by Jong Hoon Lim on 2/7/2016.
+ * Created by jhl2298 on 2/24/2016.
  */
-public class CheckOut extends Activity implements View.OnClickListener {
+public class CheckIn extends Activity implements View.OnClickListener {
 
     private Button mainMenu;
     private DatabaseHelper mDbHelper;
@@ -25,18 +24,17 @@ public class CheckOut extends Activity implements View.OnClickListener {
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
     private ListView list;
-    private CustomCursorAdapter cursorAdapter;
+    private CheckInCustomAdapter cursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.check_out);
+        setContentView(R.layout.check_in);
 
         // for now disable landscape orientation
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // open the main menu
-        mainMenu = (Button) findViewById(R.id.main_menu);
+        mainMenu = (Button) findViewById(R.id.main_menu_check_in);
         mainMenu.setOnClickListener(this);
 
         // readable database
@@ -46,24 +44,23 @@ public class CheckOut extends Activity implements View.OnClickListener {
         String sortOrder = FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " ASC";
 
         Cursor c = db.query(FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME, projection,
-                "checkedIn=?", new String[]{"Y"}, null, null, sortOrder);
+                "checkedIn=?", new String[]{"N"}, null, null, sortOrder);
 
-        list = (ListView) findViewById(R.id.listView);
+        list = (ListView) findViewById(R.id.listView_check_in);
         String[] from = new String[]{FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
         int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3, R.id.text4};
 
-        cursorAdapter = new CustomCursorAdapter(this, R.layout.row, c, from, to);
+        cursorAdapter = new CheckInCustomAdapter(this, R.layout.check_in_row, c, from, to);
         list.setAdapter(cursorAdapter);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.main_menu :
+            case R.id.main_menu_check_in :
                 Intent mainMenuIntent = new Intent(getApplication(), Main.class);
                 startActivity(mainMenuIntent);
                 db.close();
@@ -73,5 +70,4 @@ public class CheckOut extends Activity implements View.OnClickListener {
                 break;
         }
     }
-
 }

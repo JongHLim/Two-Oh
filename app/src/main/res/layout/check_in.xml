@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_menu"
-        android:id="@+id/main_menu"
+        android:id="@+id/main_menu_check_in"
         android:textColor="@color/orange"
         android:textStyle="bold"/>
 
@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Inventory currently checked-in:"
+        android:text="Inventory currently checked-out:"
         android:textSize="22sp"
         android:textColor="@color/orange"
         android:textStyle="bold"
@@ -25,6 +25,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView" />
+        android:id="@+id/listView_check_in" />
 
 </LinearLayout>

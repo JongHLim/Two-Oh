@@ -12,11 +12,11 @@ import android.widget.TextView;
 /**
  * Created by jhl2298 on 2/23/2016.
  */
-public class CustomCursorAdapter extends SimpleCursorAdapter {
+public class CheckInCustomAdapter extends SimpleCursorAdapter {
 
     private DatabaseHelper mDbHelper;
 
-    public CustomCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
+    public CheckInCustomAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
     }
 
@@ -28,9 +28,9 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         super.bindView(view, context, cursor);
-        final Button checkOut = (Button) view.findViewById(R.id.row_check_out);
+        final Button checkIn = (Button) view.findViewById(R.id.row_check_in);
         final TextView uttag = (TextView) view.findViewById(R.id.text1);
-        checkOut.setOnClickListener(new View.OnClickListener() {
+        checkIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -41,18 +41,18 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                 } catch (NumberFormatException e) {
 
                 }
-                if ( mDbHelper.checkOut(uttagNumber)) {
+                if ( mDbHelper.checkIn(uttagNumber)) {
                     new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Inventory with UTTAG Number of " +
-                            uttagNumber + " has been checked-out successfully.")
+                            uttagNumber + " has been checked-in successfully.")
                             .setNeutralButton("Close", null).show();
                 } else {
-                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-out unsuccessful!")
+                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-in unsuccessful!")
                             .setNeutralButton("Close", null).show();
                 }
 
                 // disable button and change text to notify user of change
-                checkOut.setText("CHECKED-OUT");
-                checkOut.setEnabled(false);
+                checkIn.setText("CHECKED-IN");
+                checkIn.setEnabled(false);
 
             }
         });
