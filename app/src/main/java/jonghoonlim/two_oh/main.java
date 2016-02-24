@@ -2,6 +2,7 @@ package jonghoonlim.two_oh;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -19,6 +20,9 @@ public class Main extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // for now, disable landscape orientation
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // initialize the DatabaseHelper class to interact with the database
         mDbHelper = new DatabaseHelper(this);

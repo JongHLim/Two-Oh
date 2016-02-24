@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,9 @@ public class CheckIn extends Activity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.check_in);
+
+        // for now disable landscape orientation
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // open the check-in page
         mainMenu = (Button) findViewById(R.id.main_menu);

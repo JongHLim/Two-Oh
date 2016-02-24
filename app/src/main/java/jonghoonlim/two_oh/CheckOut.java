@@ -3,6 +3,7 @@ package jonghoonlim.two_oh;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ public class CheckOut extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.check_out);
+
+        // for now disable landscape orientation
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // open the check-in page
         mainMenu = (Button) findViewById(R.id.main_menu);

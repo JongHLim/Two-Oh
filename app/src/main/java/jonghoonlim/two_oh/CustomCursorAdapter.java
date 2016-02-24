@@ -19,7 +19,6 @@ import android.widget.TextView;
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
     private DatabaseHelper mDbHelper;
-    private SQLiteDatabase db;
 
     public CustomCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
@@ -33,7 +32,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         super.bindView(view, context, cursor);
-        Button checkOut = (Button) view.findViewById(R.id.row_check_out);
+        final Button checkOut = (Button) view.findViewById(R.id.row_check_out);
         final TextView uttag = (TextView) view.findViewById(R.id.text1);
         checkOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +53,10 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                     new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-out unsuccessful!")
                             .setNeutralButton("Close", null).show();
                 }
+
+                // disable button and change text to notify user
+                checkOut.setText("CHECKED-OUT");
+                checkOut.setEnabled(false);
 
             }
         });
