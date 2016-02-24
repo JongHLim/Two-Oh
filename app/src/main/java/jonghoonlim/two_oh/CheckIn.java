@@ -20,7 +20,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
     private SQLiteDatabase db;
     private final String[] projection = { FeedReaderContract.FeedEntry._ID,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG,
-            FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE,
+            FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKOUTDATE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
     private ListView list;
@@ -48,7 +48,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
 
         list = (ListView) findViewById(R.id.listView_check_in);
         String[] from = new String[]{FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG,
-                FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE,
+                FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKOUTDATE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
         int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3, R.id.text4};

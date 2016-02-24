@@ -22,6 +22,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
     private final String[] projection = { FeedReaderContract.FeedEntry._ID,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE,
+            FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKOUTDATE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
     private ListView list;
@@ -33,7 +34,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
         setContentView(R.layout.check_out);
 
         // for now disable landscape orientation
-        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // open the main menu
         mainMenu = (Button) findViewById(R.id.main_menu);

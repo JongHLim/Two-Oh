@@ -26,9 +26,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     FeedReaderContract.FeedEntry._ID + " INTEGER PRIMARY KEY," +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " integer" + COMMA +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE + TEXT_TYPE + COMMA +
+                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKOUTDATE + TEXT_TYPE +COMMA +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE + TEXT_TYPE + COMMA +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM + TEXT_TYPE + COMMA +
-                    FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKEDIN + TEXT_TYPE +
                     FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKEDIN + TEXT_TYPE +
             ")";
     private static final String SQL_DELETE_ENTRIES =
@@ -104,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("checkedIn", "N");
+        contentValues.put("checkOutDate", getDate());
         db.update("inventory", contentValues, "uttag = ? ",
                 new String[] { Integer.toString(uttag) } );
         return true;
@@ -114,16 +115,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("checkedIn", "Y");
+        contentValues.put("checkInDate", getDate());
+        db.update("inventory", contentValues, "uttag = ? ",
+                new String[] { Integer.toString(uttag) } );
+        return true;
+    }
 
+    public String getDate() {
         // get today's date automatically
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c.getTime());
-        contentValues.put("checkInDate", formattedDate);
-
-        db.update("inventory", contentValues, "uttag = ? ",
-                new String[] { Integer.toString(uttag) } );
-        return true;
+        return formattedDate;
     }
 
     public boolean duplicateInventory(int uttag) {
