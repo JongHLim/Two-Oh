@@ -24,7 +24,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
     private ListView list;
-    private CheckInCustomAdapter cursorAdapter;
+    private CustomCursorAdapter cursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
         int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3, R.id.text4};
 
-        cursorAdapter = new CheckInCustomAdapter(this, R.layout.check_in_row, c, from, to);
+        cursorAdapter = new CustomCursorAdapter(this, R.layout.check_in_row, c, from, to);
         list.setAdapter(cursorAdapter);
     }
 

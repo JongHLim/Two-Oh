@@ -15,9 +15,11 @@ import android.widget.TextView;
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
     private DatabaseHelper mDbHelper;
+    private int layoutId;
 
     public CustomCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
         super(context, layout, c, from, to);
+        this.layoutId = layout;
     }
 
     @Override
@@ -28,35 +30,60 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         super.bindView(view, context, cursor);
-        final Button checkOut = (Button) view.findViewById(R.id.row_check_out);
         final TextView uttag = (TextView) view.findViewById(R.id.text1);
-        checkOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if (this.layoutId == R.layout.check_in_row) {
+            final Button checkInButton = (Button) view.findViewById(R.id.row_check_in);
+            checkInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int uttagNumber = -1;
+                    // disable button and change text to notify user of change
+                    checkInButton.setText("CHECKED-IN");
+                    checkInButton.setEnabled(false);
+                    mDbHelper = new DatabaseHelper(v.getContext());
+                    try {
+                        uttagNumber = Integer.parseInt(uttag.getText().toString());
+                    } catch (NumberFormatException e) {
 
-                mDbHelper = new DatabaseHelper(v.getContext());
-                int uttagNumber = -1;
-                try {
-                    uttagNumber = Integer.parseInt(uttag.getText().toString());
-                } catch (NumberFormatException e) {
-
+                    }
+                    if (mDbHelper.checkIn(uttagNumber)) {
+                        new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Inventory with UTTAG Number of " +
+                                uttagNumber + " has been checked-in successfully.")
+                                .setNeutralButton("Close", null).show();
+                    } else {
+                        new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-in unsuccessful!")
+                                .setNeutralButton("Close", null).show();
+                    }
+                    mDbHelper.close();
                 }
-                if ( mDbHelper.checkOut(uttagNumber)) {
-                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Inventory with UTTAG Number of " +
-                            uttagNumber + " has been checked-out successfully.")
-                            .setNeutralButton("Close", null).show();
-                } else {
-                    new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-out unsuccessful!")
-                            .setNeutralButton("Close", null).show();
+            });
+        } else {
+            final Button checkOutButton = (Button) view.findViewById(R.id.row_check_out);
+            checkOutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int uttagNumber = -1;
+                    // disable button and change text to notify user of change
+                    checkOutButton.setText("CHECKED-OUT");
+                    checkOutButton.setEnabled(false);
+                    mDbHelper = new DatabaseHelper(v.getContext());
+                    try {
+                        uttagNumber = Integer.parseInt(uttag.getText().toString());
+                    } catch (NumberFormatException e) {
+
+                    }
+                    if (mDbHelper.checkOut(uttagNumber)) {
+                        new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Inventory with UTTAG Number of " +
+                                uttagNumber + " has been checked-out successfully.")
+                                .setNeutralButton("Close", null).show();
+                    } else {
+                        new AlertDialog.Builder(v.getContext()).setTitle("").setMessage("Check-out unsuccessful!")
+                                .setNeutralButton("Close", null).show();
+                    }
+                    mDbHelper.close();
                 }
+            });
 
-                // disable button and change text to notify user of change
-                checkOut.setText("CHECKED-OUT");
-                checkOut.setEnabled(false);
-
-                mDbHelper.close();
-
-            }
-        });
+        }
     }
 }
