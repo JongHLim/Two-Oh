@@ -33,6 +33,9 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
         final TextView uttag = (TextView) view.findViewById(R.id.text1);
         final Button checkInButton;
         final Button checkOutButton;
+        switch (this.layoutId) {
+            case 
+        }
         if (this.layoutId == R.layout.check_in_row) {
             checkInButton = (Button) view.findViewById(R.id.row_check_in);
             checkInButton.setOnClickListener(new View.OnClickListener() {
