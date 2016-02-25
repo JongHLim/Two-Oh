@@ -77,21 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] { Integer.toString(id) });
     }
 
-    public ArrayList<String> getAllInventory()
-    {
-        ArrayList<String> uttags = new ArrayList<String>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from inventory", null );
-        res.moveToFirst();
-
-        while(res.isAfterLast() == false){
-            uttags.add(res.getString(res.getColumnIndex(FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG)));
-            res.moveToNext();
-        }
-        return uttags;
-    }
-
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME);
@@ -142,4 +127,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return true; // record exists for given uttag
     }
+
+    public Cursor selectDataWithConstrain(int searched, boolean checkedIn) {
+        char isCheckedIn;
+        if (checkedIn)
+            isCheckedIn = 'Y';
+        else
+            isCheckedIn = 'N';
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM inventory WHERE uttag LIKE '%"+searched+"%'" +
+                " AND checkedIn = '" + isCheckedIn + "'", null);
+        return cursor;
+    }
+
 }

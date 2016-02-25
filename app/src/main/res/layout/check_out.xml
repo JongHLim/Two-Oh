@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Search:"
+            android:text="Search UTTAG:"
             android:textSize="22sp"
             android:textColor="@color/orange"
             android:paddingLeft="10dp"
@@ -34,7 +34,8 @@
             android:textColor="@color/orange"
             android:textStyle="bold"
             android:paddingLeft="10dp"
-            android:id="@+id/check_out_search" />
+            android:id="@+id/check_out_search"
+            android:inputType="number"/>
 
     </LinearLayout>
 

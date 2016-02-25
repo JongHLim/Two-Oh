@@ -4,13 +4,40 @@
     android:layout_height="match_parent"
     android:background="@drawable/ut_tower">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_menu"
-        android:id="@+id/main_menu_check_in"
-        android:textColor="@color/orange"
-        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_menu"
+            android:id="@+id/main_menu_check_in"
+            android:textColor="@color/orange"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Search UTTAG:"
+            android:textSize="22sp"
+            android:textColor="@color/orange"
+            android:paddingLeft="10dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="22sp"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"
+            android:id="@+id/check_in_search"
+            android:inputType="number"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"

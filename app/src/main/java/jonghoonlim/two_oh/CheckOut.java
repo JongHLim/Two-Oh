@@ -6,9 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 
 import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
@@ -53,7 +56,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
 
         String sortOrder = FeedReaderContract.FeedEntry.INVENTORY_COLUMN_UTTAG + " ASC";
 
-        Cursor c = db.query(FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME, projection,
+        final Cursor c = db.query(FeedReaderContract.FeedEntry.INVENTORY_TABLE_NAME, projection,
                 "checkedIn=?", new String[]{"Y"}, null, null, sortOrder);
 
         list = (ListView) findViewById(R.id.listView);
@@ -65,6 +68,35 @@ public class CheckOut extends Activity implements View.OnClickListener {
 
         cursorAdapter = new CustomCursorAdapter(this, R.layout.row, c, from, to);
         list.setAdapter(cursorAdapter);
+
+        searchEditText = (EditText) findViewById(R.id.check_out_search);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Cursor cursor;
+                if (searchEditText.getText().toString().equals("")) {
+                    cursorAdapter.swapCursor(c);
+                    cursorAdapter.notifyDataSetChanged();
+                } else {
+                    int search;
+                    try {
+                        search = Integer.parseInt(s.toString());
+                    } catch (NumberFormatException e) {
+                        return;
+                    }
+                    cursor = mDbHelper.selectDataWithConstrain(search, true);
+                    cursorAdapter.swapCursor(cursor);
+                    cursorAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
     }
 
