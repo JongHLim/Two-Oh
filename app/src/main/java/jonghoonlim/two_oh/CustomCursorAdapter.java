@@ -28,18 +28,17 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
+    public void bindView(View view, Context context, final Cursor cursor) {
         super.bindView(view, context, cursor);
         final TextView uttag = (TextView) view.findViewById(R.id.text1);
+        final Button checkInButton;
+        final Button checkOutButton;
         if (this.layoutId == R.layout.check_in_row) {
-            final Button checkInButton = (Button) view.findViewById(R.id.row_check_in);
+            checkInButton = (Button) view.findViewById(R.id.row_check_in);
             checkInButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int uttagNumber = -1;
-                    // disable button and change text to notify user of change
-                    checkInButton.setText("CHECKED-IN");
-                    checkInButton.setEnabled(false);
                     mDbHelper = new DatabaseHelper(v.getContext());
                     try {
                         uttagNumber = Integer.parseInt(uttag.getText().toString());
@@ -55,17 +54,18 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                                 .setNeutralButton("Close", null).show();
                     }
                     mDbHelper.close();
+
+                    // refresh the listview
+                    cursor.requery();
+                    notifyDataSetChanged();
                 }
             });
-        } else {
-            final Button checkOutButton = (Button) view.findViewById(R.id.row_check_out);
+        } else if (this.layoutId == R.layout.row){
+            checkOutButton = (Button) view.findViewById(R.id.row_check_out);
             checkOutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int uttagNumber = -1;
-                    // disable button and change text to notify user of change
-                    checkOutButton.setText("CHECKED-OUT");
-                    checkOutButton.setEnabled(false);
                     mDbHelper = new DatabaseHelper(v.getContext());
                     try {
                         uttagNumber = Integer.parseInt(uttag.getText().toString());
@@ -81,6 +81,10 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                                 .setNeutralButton("Close", null).show();
                     }
                     mDbHelper.close();
+
+                    // refresh the listview
+                    cursor.requery();
+                    notifyDataSetChanged();
                 }
             });
 

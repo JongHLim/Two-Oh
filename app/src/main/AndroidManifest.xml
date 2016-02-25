@@ -28,7 +28,8 @@
 
         <activity
             android:name="jonghoonlim.two_oh.CheckOut"
-            android:label="@string/check_out" />
+            android:label="@string/check_out"
+            android:windowSoftInputMode="stateHidden"/>
 
     </application>
 

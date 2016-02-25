@@ -6,8 +6,11 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
@@ -27,6 +30,8 @@ public class CheckOut extends Activity implements View.OnClickListener {
             FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
     private ListView list;
     private CustomCursorAdapter cursorAdapter;
+
+    private EditText searchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
