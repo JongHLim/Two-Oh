@@ -6,12 +6,14 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
+import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
+import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
 
 
 /**

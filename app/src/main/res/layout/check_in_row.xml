@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@drawable/border">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:padding="10dip"
             android:text="UTTAG number:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text1"
@@ -37,7 +38,7 @@
             android:padding="10dip"
             android:text="Check-out date:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text2"
@@ -59,7 +60,7 @@
             android:padding="10dip"
             android:text="Machine type:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/text3"
@@ -81,7 +82,7 @@
             android:padding="10dip"
             android:text="Operating system:"
             android:textStyle="bold"
-            android:textColor="@color/dark_green"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <RelativeLayout
             android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package jonghoonlim.two_oh;
+package jonghoonlim.two_oh.dataStructures;
 
 import android.provider.BaseColumns;
 
