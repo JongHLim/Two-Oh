@@ -22,7 +22,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Search UTTAG:"
             android:textSize="22sp"
-            android:textColor="@color/orange"
+            android:textColor="@android:color/holo_blue_dark"
             android:paddingLeft="10dp"
             android:textStyle="bold"/>
 
@@ -45,9 +45,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Inventory currently checked-in:"
         android:textSize="22sp"
-        android:textColor="@color/orange"
         android:textStyle="bold"
-        android:paddingLeft="5dp" />
+        android:paddingLeft="5dp"
+        android:textColor="@color/orange" />
 
     <ListView
         android:paddingTop="10sp"

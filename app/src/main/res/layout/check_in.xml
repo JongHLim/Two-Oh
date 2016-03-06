@@ -14,7 +14,7 @@
             android:text="@string/main_menu"
             android:id="@+id/main_menu_check_in"
             android:textColor="@color/orange"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Search UTTAG:"
             android:textSize="22sp"
-            android:textColor="@color/orange"
+            android:textColor="@android:color/holo_blue_dark"
             android:paddingLeft="10dp"
             android:textStyle="bold"/>
 
