@@ -16,6 +16,7 @@ import java.util.Calendar;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    // will use mysql database... temporary
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "UTexasInventory.db";
     private static final String TEXT_TYPE = " TEXT";
