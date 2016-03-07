@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = mInflater.inflate(layout, null);
         TextView txtUtTag = (TextView) convertView.findViewById(R.id.txt_ut_tag);
         TextView txtMachineType = (TextView) convertView.findViewById(R.id.txt_machine_type);
@@ -75,6 +76,25 @@ public class CustomAdapter extends ArrayAdapter<Item>
 
         if (!currentItem.getOperatingSystem().equals("null"))
             txtOperatingSystem.setText(currentItem.getOperatingSystem());
+
+        final Button checkOutBtn;
+        final Button checkInBtn;
+        switch (this.layout) {
+            case R.layout.check_in_row :
+                break;
+            case R.layout.row :
+                checkOutBtn = (Button) convertView.findViewById(R.id.row_check_out);
+                checkOutBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemsArrayList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
+                break;
+            default :
+                break;
+        }
 
         return convertView;
     }
