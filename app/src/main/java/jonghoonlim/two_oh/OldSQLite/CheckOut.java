@@ -65,7 +65,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_CHECKINDATE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_MACHINETYPE,
                 FeedReaderContract.FeedEntry.INVENTORY_COLUMN_OPERATINGSYSTEM};
-        int[] to = new int[]{R.id.text1, R.id.text2, R.id.text3, R.id.text4};
+        int[] to = new int[]{R.id.txt_ut_tag, R.id.txt_check_in_date, R.id.txt_machine_type, R.id.txt_operating_system};
 
         cursorAdapter = new CustomCursorAdapter(this, R.layout.row, c, from, to);
         list.setAdapter(cursorAdapter);

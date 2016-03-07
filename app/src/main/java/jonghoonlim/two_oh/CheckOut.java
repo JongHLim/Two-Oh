@@ -159,11 +159,13 @@ public class CheckOut extends Activity implements View.OnClickListener {
                         current.setCheckOutDate(item.getString(TAG_CHECK_OUT_DATE));
                         current.setMachineType(item.getString(TAG_MACHINE_TYPE));
                         current.setOperatingSystem(item.getString(TAG_OPERATING_SYSTEM));
-                        current.setCheckedIn(item.getString(TAG_CHECKED_IN));
 
-                        // adding each child node to HashMap key => value
+                        // determine whether to add to list of available check-outs
+                        String checkedIn = item.getString(TAG_CHECKED_IN);
+                        current.setCheckedIn(checkedIn);
 
-                        inventoryList.add(current);
+                        if (checkedIn.equals("Y"))
+                            inventoryList.add(current);
                     }
                 }
 
@@ -188,7 +190,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
                      * Updating parsed JSON data into ListView
                      * */
                     ListAdapter adapter = new CustomAdapter(
-                            CheckOut.this, inventoryList); // populate the listview
+                            CheckOut.this, R.layout.row, inventoryList); // populate the listview
                     // updating listview
                     lv.setAdapter(adapter);
                 }

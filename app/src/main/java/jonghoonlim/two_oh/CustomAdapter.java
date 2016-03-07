@@ -20,13 +20,15 @@ public class CustomAdapter extends ArrayAdapter<Item>
     private final Context context;
     private final ArrayList<Item> itemsArrayList;
     private LayoutInflater mInflater;
+    private int layout;
 
-    public CustomAdapter(Context context, ArrayList<Item> itemsArrayList) {
-        super(context, R.layout.row, itemsArrayList);
+    public CustomAdapter(Context context, int layout, ArrayList<Item> itemsArrayList) {
+        super(context, layout, itemsArrayList);
 
         this.context = context;
         this.itemsArrayList = itemsArrayList;
         mInflater = LayoutInflater.from(context);
+        this.layout = layout;
     }
 
     public int getCount() {
@@ -39,19 +41,34 @@ public class CustomAdapter extends ArrayAdapter<Item>
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = mInflater.inflate(R.layout.row, null);
+        convertView = mInflater.inflate(layout, null);
         TextView txtUtTag = (TextView) convertView.findViewById(R.id.txt_ut_tag);
-        TextView txtCheckInDate = (TextView) convertView.findViewById(R.id.txt_check_in_date);
         TextView txtMachineType = (TextView) convertView.findViewById(R.id.txt_machine_type);
         TextView txtOperatingSystem = (TextView) convertView.findViewById(R.id.txt_operating_system);
+        TextView txtCheckInDate;
+        TextView txtCheckOutDate;
 
         Item currentItem = itemsArrayList.get(position);
+        // if it's check-out page
+        if (layout == R.layout.row)
+        {
+            txtCheckInDate = (TextView) convertView.findViewById(R.id.txt_check_in_date);
+
+            if (!currentItem.getCheckInDate().equals("null"))
+                txtCheckInDate.setText(currentItem.getCheckInDate());
+
+        }
+        // it must be check-in page
+        else
+        {
+            txtCheckOutDate = (TextView) convertView.findViewById(R.id.txt_check_out_date);
+
+            if (!currentItem.getCheckOutDate().equals("null"))
+                txtCheckOutDate.setText(currentItem.getCheckOutDate());
+        }
 
         if (!currentItem.getUtTag().equals("null"))
             txtUtTag.setText(currentItem.getUtTag());
-
-        if (!currentItem.getCheckInDate().equals("null"))
-            txtCheckInDate.setText(currentItem.getCheckInDate());
 
         if (!currentItem.getMachineType().equals("null"))
             txtMachineType.setText(currentItem.getMachineType());

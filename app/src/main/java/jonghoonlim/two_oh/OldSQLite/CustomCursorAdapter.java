@@ -34,7 +34,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
     @Override
     public void bindView(View view, Context context, final Cursor cursor) {
         super.bindView(view, context, cursor);
-        final TextView uttag = (TextView) view.findViewById(R.id.text1);
+        final TextView uttag = (TextView) view.findViewById(R.id.txt_ut_tag);
         final Button checkInButton;
         final Button checkOutButton;
         switch (this.layoutId) {
