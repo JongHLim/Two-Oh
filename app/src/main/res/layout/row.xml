@@ -25,7 +25,7 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/text1"
+            android:id="@+id/txt_ut_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
@@ -48,7 +48,7 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/text2"
+            android:id="@+id/txt_check_in_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
@@ -70,7 +70,7 @@
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/text3"
+            android:id="@+id/txt_machine_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dip"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent">
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/text4"
+                android:id="@+id/txt_operating_system"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dip"

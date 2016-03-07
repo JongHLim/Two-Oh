@@ -31,6 +31,7 @@ import java.util.List;
 import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
 import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
 import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
+import jonghoonlim.two_oh.dataStructures.Item;
 import jonghoonlim.two_oh.dataStructures.JSONParser;
 
 
@@ -45,18 +46,20 @@ public class CheckOut extends Activity implements View.OnClickListener {
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser();
 
-    ArrayList<HashMap<String, ArrayList<String>>> inventoryList;
+    ArrayList<Item> inventoryList;
 
     // url to get all products list
     private static String url_read_all_inventory = "http://192.168.1.6:80/android_connect/read_all_inventory.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
-    private static final String[] TAGS = new String[]{"ut_tag", "check_in_date",
-            "check_out_date", "machine_type", "operating_system", "checked_in"} ;
-    private static final String TAGS_STRING = "tags";
+    private static final String TAG_UT_TAG = "ut_tag";
+    private static final String TAG_CHECK_IN_DATE = "check_in_date";
+    private static final String TAG_CHECK_OUT_DATE = "check_out_date";
+    private static final String TAG_MACHINE_TYPE = "machine_type";
+    private static final String TAG_OPERATING_SYSTEM = "operating_system";
+    private static final String TAG_CHECKED_IN = "checked_in";
     private static final String TAG_INVENTORY = "inventory";
-    private static final String TAG_ID = "id";
 
     // inventory JSONArray
     JSONArray inventory = null;
@@ -146,30 +149,21 @@ public class CheckOut extends Activity implements View.OnClickListener {
                     // products found
                     // Getting Array of Products
                     inventory = json.getJSONArray(TAG_INVENTORY);
-
+                    Item current;
                     // looping through All Products
                     for (int i = 0; i < inventory.length(); i++) {
                         JSONObject item = inventory.getJSONObject(i);
-                        // Storing each json item in variable
-                        String id = item.getString(TAG_ID);
-                        System.out.println("DEBUG *****: " + item.getString(TAG_ID));
-                        ArrayList<String> ids = new ArrayList<>();
-                        ids.add(id);
+                        current = new Item();
+                        current.setUtTag(item.getString(TAG_UT_TAG));
+                        current.setCheckInDate(item.getString(TAG_CHECK_IN_DATE));
+                        current.setCheckOutDate(item.getString(TAG_CHECK_OUT_DATE));
+                        current.setMachineType(item.getString(TAG_MACHINE_TYPE));
+                        current.setOperatingSystem(item.getString(TAG_OPERATING_SYSTEM));
+                        current.setCheckedIn(item.getString(TAG_CHECKED_IN));
 
-                        // get all other info... uttag, checked_in_date, etc.
-                        ArrayList<String> allInfoList = new ArrayList<>();
-                        for (String tag : TAGS) {
-                            System.out.println("DEBUG *****: " + item.getString(tag));
-                            allInfoList.add(item.getString(tag));
-                        }
-
-                        // creating new HashMap
-                        HashMap<String, ArrayList<String>> map = new HashMap<>();
                         // adding each child node to HashMap key => value
-                        map.put(TAG_ID, ids);
-                        map.put(TAGS_STRING, allInfoList);
 
-                        inventoryList.add(map);
+                        inventoryList.add(current);
                     }
                 }
 
@@ -193,11 +187,8 @@ public class CheckOut extends Activity implements View.OnClickListener {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new SimpleAdapter(
-                            CheckOut.this, inventoryList,
-                            R.layout.row, new String[]{TAG_ID,
-                            TAGS[0], TAGS[1], TAGS[3], TAGS[4]},
-                            new int[]{R.id.id, R.id.text1, R.id.text2, R.id.text3, R.id.text4}); // populate the listview
+                    ListAdapter adapter = new CustomAdapter(
+                            CheckOut.this, inventoryList); // populate the listview
                     // updating listview
                     lv.setAdapter(adapter);
                 }
