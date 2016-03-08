@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import jonghoonlim.two_oh.R;
+import jonghoonlim.two_oh.*;
+import jonghoonlim.two_oh.FeedReaderContract;
 
 /**
  * Created by jhl2298 on 3/6/2016.
@@ -31,15 +32,6 @@ public class CustomAdapter extends ArrayAdapter<Item>
     private final ArrayList<Item> itemsArrayList;
     private LayoutInflater mInflater;
     private int layout;
-
-    private static final String TAG_ID = "id";
-    private static final String TAG_UT_TAG = "ut_tag";
-    private static final String TAG_CHECK_IN_DATE = "check_in_date";
-    private static final String TAG_CHECK_OUT_DATE = "check_out_date";
-    private static final String TAG_MACHINE_TYPE = "machine_type";
-    private static final String TAG_OPERATING_SYSTEM = "operating_system";
-    private static final String TAG_CHECKED_IN = "checked_in";
-    private static final String TAG_SUCCESS = "success";
 
     private static final String NULL = "null";
     // JSON parser class
@@ -162,27 +154,27 @@ public class CustomAdapter extends ArrayAdapter<Item>
             List<NameValuePair> params = new ArrayList<>();
 
             // id will never be null
-            params.add(new BasicNameValuePair(TAG_ID, item.getId()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_ID, item.getId()));
 
-            params.add(new BasicNameValuePair(TAG_UT_TAG, item.getUtTag()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_UT_TAG, item.getUtTag()));
 
-            params.add(new BasicNameValuePair(TAG_CHECK_IN_DATE, item.getCheckInDate()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE, item.getCheckInDate()));
 
             // check out date will never be null in check out
-            params.add(new BasicNameValuePair(TAG_CHECK_OUT_DATE, getDate()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE, getDate()));
 
-            params.add(new BasicNameValuePair(TAG_MACHINE_TYPE, item.getMachineType()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_MACHINE_TYPE, item.getMachineType()));
 
-            params.add(new BasicNameValuePair(TAG_OPERATING_SYSTEM, item.getOperatingSystem()));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_OPERATING_SYSTEM, item.getOperatingSystem()));
 
-            params.add(new BasicNameValuePair(TAG_CHECKED_IN, "N"));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECKED_IN, "N"));
 
             JSONObject json = jsonParser.makeHttpRequest(url_update_inventory,
                     "POST", params);
 
             // check json success tag
             try {
-                success = json.getInt(TAG_SUCCESS);
+                success = json.getInt(FeedReaderContract.FeedEntry.TAG_SUCCESS);
             }
             catch (JSONException e) {
                 e.printStackTrace();

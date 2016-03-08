@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import jonghoonlim.two_oh.OldSQLite.CustomCursorAdapter;
+import jonghoonlim.two_oh.OldDataStructures.CustomCursorAdapter;
 import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
-import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
+import jonghoonlim.two_oh.OldDataStructures.FeedReaderContract;
 
 /**
  * Created by jhl2298 on 2/24/2016.

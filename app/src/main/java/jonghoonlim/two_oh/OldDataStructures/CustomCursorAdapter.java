@@ -1,4 +1,4 @@
-package jonghoonlim.two_oh.OldSQLite;
+package jonghoonlim.two_oh.OldDataStructures;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import jonghoonlim.two_oh.R;
-import jonghoonlim.two_oh.dataStructures.*;
 import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
 
 /**

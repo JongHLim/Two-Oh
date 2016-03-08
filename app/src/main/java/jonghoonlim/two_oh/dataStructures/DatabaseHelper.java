@@ -8,8 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+
+import jonghoonlim.two_oh.OldDataStructures.FeedReaderContract;
 
 /**
  * Created by jhl2298 on 2/10/2016.

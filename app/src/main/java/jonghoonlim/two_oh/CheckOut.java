@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,7 +22,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import jonghoonlim.two_oh.dataStructures.CustomAdapter;
@@ -47,17 +45,6 @@ public class CheckOut extends Activity implements View.OnClickListener {
 
     // url to get all products list
     private static String url_read_all_inventory = "http://www.jonghoonlim.me/android_connect/read_all_inventory.php";
-
-    // JSON Node names
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_ID = "id";
-    private static final String TAG_UT_TAG = "ut_tag";
-    private static final String TAG_CHECK_IN_DATE = "check_in_date";
-    private static final String TAG_CHECK_OUT_DATE = "check_out_date";
-    private static final String TAG_MACHINE_TYPE = "machine_type";
-    private static final String TAG_OPERATING_SYSTEM = "operating_system";
-    private static final String TAG_CHECKED_IN = "checked_in";
-    private static final String TAG_INVENTORY = "inventory";
 
     // inventory JSONArray
     JSONArray inventory = null;
@@ -157,27 +144,27 @@ public class CheckOut extends Activity implements View.OnClickListener {
 
             try {
                 // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
+                int success = json.getInt(FeedReaderContract.FeedEntry.TAG_SUCCESS);
 
                 // get all inventory and store in HashMap
                 if (success == 1) {
                     // products found
                     // Getting Array of Products
-                    inventory = json.getJSONArray(TAG_INVENTORY);
+                    inventory = json.getJSONArray(FeedReaderContract.FeedEntry.TAG_INVENTORY);
                     Item current;
                     // looping through All Products
                     for (int i = 0; i < inventory.length(); i++) {
                         JSONObject item = inventory.getJSONObject(i);
                         current = new Item();
-                        current.setId(item.getString(TAG_ID));
-                        current.setUtTag(item.getString(TAG_UT_TAG));
-                        current.setCheckInDate(item.getString(TAG_CHECK_IN_DATE));
-                        current.setCheckOutDate(item.getString(TAG_CHECK_OUT_DATE));
-                        current.setMachineType(item.getString(TAG_MACHINE_TYPE));
-                        current.setOperatingSystem(item.getString(TAG_OPERATING_SYSTEM));
+                        current.setId(item.getString(FeedReaderContract.FeedEntry.TAG_ID));
+                        current.setUtTag(item.getString(FeedReaderContract.FeedEntry.TAG_UT_TAG));
+                        current.setCheckInDate(item.getString(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE));
+                        current.setCheckOutDate(item.getString(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE));
+                        current.setMachineType(item.getString(FeedReaderContract.FeedEntry.TAG_MACHINE_TYPE));
+                        current.setOperatingSystem(item.getString(FeedReaderContract.FeedEntry.TAG_OPERATING_SYSTEM));
 
                         // determine whether to add to list of available check-outs
-                        String checkedIn = item.getString(TAG_CHECKED_IN);
+                        String checkedIn = item.getString(FeedReaderContract.FeedEntry.TAG_CHECKED_IN);
                         current.setCheckedIn(checkedIn);
 
                         if (checkedIn.equals("Y"))

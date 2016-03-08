@@ -1,4 +1,4 @@
-package jonghoonlim.two_oh.OldSQLite;
+package jonghoonlim.two_oh.OldDataStructures;
 
 import android.provider.BaseColumns;
 
