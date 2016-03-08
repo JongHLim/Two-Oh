@@ -196,7 +196,9 @@ public class CustomAdapter extends ArrayAdapter<Item>
         /**
          * After completing background task Dismiss the progress dialog
          **/
-        protected void onPostExecute() {
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
             Toast toast;
             if (success == 1) {
                 toast = Toast.makeText(context, "Inventory with UTTAG Number of " +
