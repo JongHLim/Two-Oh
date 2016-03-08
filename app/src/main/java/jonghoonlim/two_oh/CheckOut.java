@@ -49,7 +49,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
     ArrayList<Item> inventoryList;
 
     // url to get all products list
-    private static String url_read_all_inventory = "http://192.168.1.6:80/android_connect/read_all_inventory.php";
+    private static String url_read_all_inventory = "http://www.jonghoonlim.me/android_connect/read_all_inventory.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";

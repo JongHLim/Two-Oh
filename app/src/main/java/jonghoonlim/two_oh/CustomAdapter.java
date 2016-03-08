@@ -81,6 +81,14 @@ public class CustomAdapter extends ArrayAdapter<Item>
         final Button checkInBtn;
         switch (this.layout) {
             case R.layout.check_in_row :
+                checkInBtn = (Button) convertView.findViewById(R.id.row_check_in);
+                checkInBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemsArrayList.remove(position);
+                        notifyDataSetChanged();
+                    }
+                });
                 break;
             case R.layout.row :
                 checkOutBtn = (Button) convertView.findViewById(R.id.row_check_out);
