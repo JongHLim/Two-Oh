@@ -51,4 +51,8 @@ public class Item {
     public void setCheckedIn(String checkedIn) {this.checkedIn = checkedIn;}
 
     public String getCheckedIn() {return this.checkedIn;}
+
+    public String toString() {return "[id = " + this.id +"] [ut_tag = " + utTag + "] [check_in_date = " +
+        this.checkInDate + "] [check_out_date = " + checkOutDate + "] [machine_type = " + machineType + "] [operating_system = "
+        + this.operatingSystem + "] [checked_in = " + checkedIn + "]";}
 }

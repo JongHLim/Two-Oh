@@ -43,6 +43,8 @@ public class CustomAdapter extends ArrayAdapter<Item>
     private static final String TAG_OPERATING_SYSTEM = "operating_system";
     private static final String TAG_CHECKED_IN = "checked_in";
     private static final String TAG_SUCCESS = "success";
+
+    private static final String NULL = "null";
     // JSON parser class
     JSONParser jsonParser = new JSONParser();
 
@@ -81,7 +83,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
         {
             txtCheckInDate = (TextView) convertView.findViewById(R.id.txt_check_in_date);
 
-            if (!currentItem.getCheckInDate().equals("null"))
+            if (!currentItem.getCheckInDate().equals(NULL))
                 txtCheckInDate.setText(currentItem.getCheckInDate());
 
         }
@@ -90,17 +92,17 @@ public class CustomAdapter extends ArrayAdapter<Item>
         {
             txtCheckOutDate = (TextView) convertView.findViewById(R.id.txt_check_out_date);
 
-            if (!currentItem.getCheckOutDate().equals("null"))
+            if (!currentItem.getCheckOutDate().equals(NULL))
                 txtCheckOutDate.setText(currentItem.getCheckOutDate());
         }
 
-        if (!currentItem.getUtTag().equals("null"))
+        if (!currentItem.getUtTag().equals(NULL))
             txtUtTag.setText(currentItem.getUtTag());
 
-        if (!currentItem.getMachineType().equals("null"))
+        if (!currentItem.getMachineType().equals(NULL))
             txtMachineType.setText(currentItem.getMachineType());
 
-        if (!currentItem.getOperatingSystem().equals("null"))
+        if (!currentItem.getOperatingSystem().equals(NULL))
             txtOperatingSystem.setText(currentItem.getOperatingSystem());
 
         final Button checkOutBtn;
@@ -162,18 +164,24 @@ public class CustomAdapter extends ArrayAdapter<Item>
             // Building Parameters
             List<NameValuePair> params = new ArrayList<>();
 
+            // id will never be null
             params.add(new BasicNameValuePair(TAG_ID, item.getId()));
+
             params.add(new BasicNameValuePair(TAG_UT_TAG, item.getUtTag()));
+
             params.add(new BasicNameValuePair(TAG_CHECK_IN_DATE, item.getCheckInDate()));
+
+            // check out date will never be null in check out
             params.add(new BasicNameValuePair(TAG_CHECK_OUT_DATE, getDate()));
+
             params.add(new BasicNameValuePair(TAG_MACHINE_TYPE, item.getMachineType()));
+
             params.add(new BasicNameValuePair(TAG_OPERATING_SYSTEM, item.getOperatingSystem()));
+
             params.add(new BasicNameValuePair(TAG_CHECKED_IN, "N"));
-            System.out.println(item.getId());
 
             JSONObject json = jsonParser.makeHttpRequest(url_update_inventory,
                     "POST", params);
-            Log.i("tagconvertstr", "[" + json + "]");
 
             // check json success tag
             try {
