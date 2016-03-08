@@ -1,17 +1,29 @@
 package jonghoonlim.two_oh;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
+import java.util.List;
 
 import jonghoonlim.two_oh.dataStructures.Item;
+import jonghoonlim.two_oh.dataStructures.JSONParser;
 
 /**
  * Created by jhl2298 on 3/6/2016.
@@ -22,6 +34,20 @@ public class CustomAdapter extends ArrayAdapter<Item>
     private final ArrayList<Item> itemsArrayList;
     private LayoutInflater mInflater;
     private int layout;
+
+    private static final String TAG_ID = "id";
+    private static final String TAG_UT_TAG = "ut_tag";
+    private static final String TAG_CHECK_IN_DATE = "check_in_date";
+    private static final String TAG_CHECK_OUT_DATE = "check_out_date";
+    private static final String TAG_MACHINE_TYPE = "machine_type";
+    private static final String TAG_OPERATING_SYSTEM = "operating_system";
+    private static final String TAG_CHECKED_IN = "checked_in";
+    private static final String TAG_SUCCESS = "success";
+    // JSON parser class
+    JSONParser jsonParser = new JSONParser();
+
+    // url to update inventory
+    private static final String url_update_inventory = "http://www.jonghoonlim.me/android_connect/update_inventory.php";
 
     public CustomAdapter(Context context, int layout, ArrayList<Item> itemsArrayList) {
         super(context, layout, itemsArrayList);
@@ -90,13 +116,15 @@ public class CustomAdapter extends ArrayAdapter<Item>
                     }
                 });
                 break;
+            // Check-out button
             case R.layout.row :
                 checkOutBtn = (Button) convertView.findViewById(R.id.row_check_out);
                 checkOutBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itemsArrayList.remove(position);
+                        Item checkedOut = itemsArrayList.remove(position);
                         notifyDataSetChanged();
+                        new CheckOutInventory(checkedOut).execute();
                     }
                 });
                 break;
@@ -105,6 +133,79 @@ public class CustomAdapter extends ArrayAdapter<Item>
         }
 
         return convertView;
+    }
+
+    /**
+     * Background Async Task to check out inventory by making HTTP request
+     * */
+    class CheckOutInventory extends AsyncTask<String, String, String> {
+
+        private Item item;
+        private int success;
+
+        public CheckOutInventory(Item item) {
+            this.item = item;
+        }
+
+        /**
+         * Before starting background thread Show Progress Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        /**
+         * updating inventory using url php file
+         */
+        protected String doInBackground(String... args) {
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<>();
+
+            params.add(new BasicNameValuePair(TAG_ID, item.getId()));
+            params.add(new BasicNameValuePair(TAG_UT_TAG, item.getUtTag()));
+            params.add(new BasicNameValuePair(TAG_CHECK_IN_DATE, item.getCheckInDate()));
+            params.add(new BasicNameValuePair(TAG_CHECK_OUT_DATE, getDate()));
+            params.add(new BasicNameValuePair(TAG_MACHINE_TYPE, item.getMachineType()));
+            params.add(new BasicNameValuePair(TAG_OPERATING_SYSTEM, item.getOperatingSystem()));
+            params.add(new BasicNameValuePair(TAG_CHECKED_IN, "N"));
+            System.out.println(item.getId());
+
+            JSONObject json = jsonParser.makeHttpRequest(url_update_inventory,
+                    "POST", params);
+            Log.i("tagconvertstr", "[" + json + "]");
+
+            // check json success tag
+            try {
+                success = json.getInt(TAG_SUCCESS);
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         **/
+        protected void onPostExecute() {
+            Toast toast;
+            if (success == 1) {
+                toast = Toast.makeText(context, "Inventory with UTTAG Number of " +
+                        item.getUtTag() + " has been checked-out successfully.", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                toast = Toast.makeText(context, "Check-out unsuccessful!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+    }
+
+    public String getDate() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+        return formattedDate;
     }
 
 }

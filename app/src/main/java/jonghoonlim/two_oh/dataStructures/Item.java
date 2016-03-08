@@ -6,6 +6,7 @@ package jonghoonlim.two_oh.dataStructures;
  */
 public class Item {
 
+    private String id;
     private String utTag;
     private String checkInDate;
     private String checkOutDate;
@@ -14,6 +15,7 @@ public class Item {
     private String checkedIn;
 
     public Item() {
+        id = "";
         utTag = "";
         checkInDate = "";
         checkOutDate = "";
@@ -21,6 +23,10 @@ public class Item {
         operatingSystem = "";
         checkedIn = "";
     }
+
+    public void setId(String id) {this.id = id;}
+
+    public String getId() {return this.id;}
 
     public void setUtTag(String utTag) {this.utTag = utTag;}
 

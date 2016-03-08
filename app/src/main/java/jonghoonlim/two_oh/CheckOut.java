@@ -1,6 +1,7 @@
 package jonghoonlim.two_oh;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -49,10 +50,11 @@ public class CheckOut extends Activity implements View.OnClickListener {
     ArrayList<Item> inventoryList;
 
     // url to get all products list
-    private static String url_read_all_inventory = "http://www.jonghoonlim.me/android_connect/read_all_inventory.php"; 
+    private static String url_read_all_inventory = "http://www.jonghoonlim.me/android_connect/read_all_inventory.php";
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
+    private static final String TAG_ID = "id";
     private static final String TAG_UT_TAG = "ut_tag";
     private static final String TAG_CHECK_IN_DATE = "check_in_date";
     private static final String TAG_CHECK_OUT_DATE = "check_out_date";
@@ -88,14 +90,6 @@ public class CheckOut extends Activity implements View.OnClickListener {
         mainMenu.setOnClickListener(this);
 
         lv = (ListView) findViewById(R.id.listView);
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
 
     }
 
@@ -154,6 +148,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
                     for (int i = 0; i < inventory.length(); i++) {
                         JSONObject item = inventory.getJSONObject(i);
                         current = new Item();
+                        current.setId(item.getString(TAG_ID));
                         current.setUtTag(item.getString(TAG_UT_TAG));
                         current.setCheckInDate(item.getString(TAG_CHECK_IN_DATE));
                         current.setCheckOutDate(item.getString(TAG_CHECK_OUT_DATE));
