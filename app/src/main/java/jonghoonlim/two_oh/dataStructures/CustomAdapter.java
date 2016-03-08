@@ -1,9 +1,7 @@
-package jonghoonlim.two_oh;
+package jonghoonlim.two_oh.dataStructures;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import jonghoonlim.two_oh.dataStructures.Item;
-import jonghoonlim.two_oh.dataStructures.JSONParser;
+import jonghoonlim.two_oh.R;
 
 /**
  * Created by jhl2298 on 3/6/2016.

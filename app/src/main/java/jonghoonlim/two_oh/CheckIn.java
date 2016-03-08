@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
+import jonghoonlim.two_oh.OldSQLite.CustomCursorAdapter;
 import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
 import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
 

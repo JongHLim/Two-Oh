@@ -1,24 +1,20 @@
 package jonghoonlim.two_oh;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -26,12 +22,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
-import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
-import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
+import jonghoonlim.two_oh.dataStructures.CustomAdapter;
+import jonghoonlim.two_oh.dataStructures.CustomComparator;
 import jonghoonlim.two_oh.dataStructures.Item;
 import jonghoonlim.two_oh.dataStructures.JSONParser;
 
@@ -72,6 +68,8 @@ public class CheckOut extends Activity implements View.OnClickListener {
 
     private ListView lv;
 
+    private ListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +88,29 @@ public class CheckOut extends Activity implements View.OnClickListener {
         mainMenu.setOnClickListener(this);
 
         lv = (ListView) findViewById(R.id.listView);
+
+        searchEditText = (EditText) findViewById(R.id.check_out_search);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence number, int start, int before, int count) {
+                int searchLength = number.length();
+                ArrayList<Item> temp = new ArrayList<>();
+                for (Item item : inventoryList) {
+                    String utTag = item.getUtTag();
+                    if (searchLength <= utTag.length() && utTag.contains(number))
+                        temp.add(item);
+                }
+                Collections.sort(temp, new CustomComparator());
+                CustomAdapter filteredAdapter = new CustomAdapter(CheckOut.this, R.layout.row, temp);
+                lv.setAdapter(filteredAdapter);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
     }
 
@@ -184,8 +205,13 @@ public class CheckOut extends Activity implements View.OnClickListener {
                     /**
                      * Updating parsed JSON data into ListView
                      * */
-                    ListAdapter adapter = new CustomAdapter(
+
+                    // First sort the array by UT TAG number
+                    Collections.sort(inventoryList, new CustomComparator());
+
+                    adapter = new CustomAdapter(
                             CheckOut.this, R.layout.row, inventoryList); // populate the listview
+
                     // updating listview
                     lv.setAdapter(adapter);
                 }

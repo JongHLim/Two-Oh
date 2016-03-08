@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import jonghoonlim.two_oh.Main;
 import jonghoonlim.two_oh.R;
-import jonghoonlim.two_oh.dataStructures.CustomCursorAdapter;
+import jonghoonlim.two_oh.OldSQLite.CustomCursorAdapter;
 import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
 import jonghoonlim.two_oh.dataStructures.FeedReaderContract;
 
