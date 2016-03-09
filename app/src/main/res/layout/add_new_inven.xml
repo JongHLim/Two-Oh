@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ut_tower">
+    android:background="@drawable/background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_toLeftOf="@+id/reset"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkSlateGray"
             android:textStyle="bold"/>
 
         <Button
@@ -30,7 +30,7 @@
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/reset"
             android:layout_toRightOf="@+id/reset"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkSlateGray"
             android:textStyle="bold"/>
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkSlateGray"
             android:textStyle="bold"/>
 
     </RelativeLayout>
@@ -72,7 +72,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/DarkBlue"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/holo_blue_dark"/>
+                    android:textColor="@color/Cyan"/>
 
             </LinearLayout>
 
@@ -105,7 +105,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/DarkBlue"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/holo_blue_dark"/>
+                    android:textColor="@color/Cyan"/>
 
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/DarkBlue"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -150,7 +150,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/holo_blue_dark"/>
+                    android:textColor="@color/Cyan"/>
 
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/DarkBlue"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/holo_blue_dark"/>
+                    android:textColor="@color/Cyan"/>
 
             </LinearLayout>
 

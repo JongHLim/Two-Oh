@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/border">
 
-    <!-- Product id (pid) - will be HIDDEN - used to pass to other activity -->
+    <!-- Inventory id (pid) - will be HIDDEN - used to pass to other activity -->
     <TextView
         android:id="@+id/id"
         android:layout_width="fill_parent"
@@ -22,7 +22,7 @@
             android:padding="10dip"
             android:text="UTTAG number:"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/DarkBlue"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/txt_ut_tag"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"
+            android:textColor="@color/Cyan"
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -45,7 +45,7 @@
             android:padding="10dip"
             android:text="Check-in date:"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/DarkBlue"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/txt_check_in_date"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"
+            android:textColor="@color/Cyan"
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -67,7 +67,7 @@
             android:padding="10dip"
             android:text="Machine type:"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/DarkBlue"
             android:textSize="18sp"/>
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/txt_machine_type"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"
+            android:textColor="@color/Cyan"
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -89,7 +89,7 @@
             android:padding="10dip"
             android:text="Operating system:"
             android:textStyle="bold"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/DarkBlue"
             android:textSize="18sp"/>
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:textStyle="bold"
-            android:textColor="@color/orange"
+            android:textColor="@color/Cyan"
             android:textSize="18sp"/>
 
     </LinearLayout>
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:text="Check-out"
             android:id="@+id/row_check_out"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkSlateGray"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"/>
 

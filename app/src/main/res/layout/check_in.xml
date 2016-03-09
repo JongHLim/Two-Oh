@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ut_tower">
+    android:background="@drawable/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:text="@string/main_menu"
             android:id="@+id/main_menu_check_in"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkSlateGray"
             android:textStyle="bold" />
 
         <TextView
@@ -22,7 +22,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Search UTTAG:"
             android:textSize="22sp"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/Cyan"
             android:paddingLeft="10dp"
             android:textStyle="bold"/>
 
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:textSize="22sp"
-            android:textColor="@color/orange"
+            android:textColor="@color/DarkBlue"
             android:textStyle="bold"
             android:paddingLeft="10dp"
             android:id="@+id/check_in_search"
@@ -45,7 +45,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Inventory currently checked-out:"
         android:textSize="22sp"
-        android:textColor="@color/orange"
+        android:textColor="@color/DarkBlue"
         android:textStyle="bold"
         android:paddingLeft="5dp" />
 
