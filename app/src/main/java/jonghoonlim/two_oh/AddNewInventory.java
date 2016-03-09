@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import jonghoonlim.two_oh.OldDataStructures.DatabaseHelper;
 import jonghoonlim.two_oh.dataStructures.JSONParser;
@@ -41,7 +42,6 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
     private Button mainMenu;
     private Button submit;
     private Button reset;
-    private DatabaseHelper mDbHelper;
 
     // this is what will be inputted into the database
     private EditText uttagInput;
@@ -49,17 +49,15 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
     private EditText machineTypeInput;
     private EditText operatingSystemInput;
 
-    private HashSet<String> duplicates = new HashSet<>();
-
     // Creating JSON Parser object
-    JSONParser jParser = new JSONParser();
+    JSONParser jParser = new JSONParser(); // for checking duplicate
+    JSONParser jParserInsert = new JSONParser(); // for inserting
+
+    // Progress Dialog
+    private ProgressDialog pDialog;
 
     private static String url_duplicate_uttag = "http://www.jonghoonlim.me/android_connect/duplicate_uttag.php";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private static String url_insert_inventory = "http://www.jonghoonlim.me/android_connect/create_inventory.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +76,6 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
         reset = (Button) findViewById(R.id.reset);
         reset.setOnClickListener(this);
 
-        // interact with the database
-        mDbHelper = new DatabaseHelper(this);
-
         // the fields to extract the data from
         uttagInput = (EditText) findViewById(R.id.uttag_editText);
         checkInDateInput = (EditText) findViewById(R.id.date_editText);
@@ -89,9 +84,7 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
 
         machineTypeInput = (EditText) findViewById(R.id.machineType_editText);
         operatingSystemInput = (EditText) findViewById(R.id.operatingSystem_editText);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     @Override
@@ -100,25 +93,41 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
             case R.id.main_menu:
                 Intent mainMenuIntent = new Intent(getApplication(), Main.class);
                 startActivity(mainMenuIntent);
-                mDbHelper.close();
                 break;
             case R.id.submit:
                 String utTag = uttagInput.getText().toString();
-                new CheckDuplicateUTTAG(utTag).execute();
-                if (duplicates.contains(utTag)) {
+
+                // get rest of the info
+                String checkInDate = checkInDateInput.getText().toString();
+                String machineType = machineTypeInput.getText().toString();
+                String operatingSystem = operatingSystemInput.getText().toString();
+
+                // run the duplicate checking background task
+                String output = "";
+                try {
+                    output = new CheckDuplicateUTTAG(utTag).execute().get();
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                // the CheckDuplicate background task found a duplicate
+                if (output.equals("Duplicate found."))
                     new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory with " +
                             "UTTAG number " + utTag + " already exists!")
                             .setNeutralButton("Close", null).show();
-                    break;
-                }
-                
-//                if (true) {
-//                    new AlertDialog.Builder(this).setTitle("Sucess!").setMessage("Inventory added successfully.")
-//                            .setNeutralButton("Close", null).show();
-//                } else {
-//                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory could not be added.")
-//                            .setNeutralButton("Close", null).show();
-//                }
+
+                // all fields are empty
+                else if(checkInDate.equals("") && machineType.equals("") && operatingSystem.equals("") && utTag.equals(""))
+                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Please input the inventory information.")
+                            .setNeutralButton("Close", null).show();
+
+                // error checking complete. Insert inventory through background task
+                else
+                    new InsertInventory(utTag, checkInDate, machineType, operatingSystem).execute();
+
                 break;
             case R.id.reset:
                 resetFields();
@@ -144,32 +153,105 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
         return formattedDate;
     }
 
+    // background task to insert new inventory
+    class InsertInventory extends AsyncTask<String, String, String> {
+
+        private String utTag;
+        private String checkInDate;
+        private String machineType;
+        private String operatingSystem;
+        private int added;
+
+        public InsertInventory(String utTag, String checkInDate, String machineType, String operatingSystem) {
+            this.utTag = utTag;
+            this.checkInDate = checkInDate;
+            this.machineType = machineType;
+            this.operatingSystem = operatingSystem;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(AddNewInventory.this);
+            pDialog.setMessage("Inserting new inventory. Please wait...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_UT_TAG, this.utTag));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE, this.checkInDate));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE, ""));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_MACHINE_TYPE, this.machineType));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_OPERATING_SYSTEM, this.operatingSystem));
+            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECKED_IN, "Y"));
+
+            // getting JSON Object
+            // Note that create product url accepts POST method
+            JSONObject jsonInsert = jParserInsert.makeHttpRequest(url_insert_inventory,
+                    "POST", params);
+
+            // check log cat for response
+            Log.d("Create Response", jsonInsert.toString());
+
+            try {
+                added = jsonInsert.getInt("added");
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once product uupdated
+            pDialog.dismiss();
+            if (added == 1) {
+                new AlertDialog.Builder(AddNewInventory.this).setTitle("Sucess!").setMessage("Inventory added successfully.")
+                        .setNeutralButton("Close", null).show();
+            } else {
+                new AlertDialog.Builder(AddNewInventory.this).setTitle("Failure!").setMessage("Inventory could not be added.")
+                        .setNeutralButton("Close", null).show();
+            }
+        }
+
+    }
+
+    // background task to check whether inventory already exists in the database
     class CheckDuplicateUTTAG extends AsyncTask<String, String, String> {
 
         private final String utTag;
+        private int success;
 
         public CheckDuplicateUTTAG(String utTag) {
             this.utTag = utTag;
         }
 
         protected String doInBackground(String... params) {
-            // Check for success tag
-            int success;
             List<NameValuePair> array = new ArrayList<>();
             array.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_UT_TAG, this.utTag));
             JSONObject json = jParser.makeHttpRequest(
                     url_duplicate_uttag, "GET", array);
-
+            // Check for success tag
             try {
                 success = json.getInt(FeedReaderContract.FeedEntry.TAG_SUCCESS);
-                if (success == 1) {
-                    duplicates.add(this.utTag);
-                }
             }
             catch (JSONException e){
                     e.printStackTrace();
             }
-            return null;
+            if (success == 1)
+                return "Duplicate found.";
+            else
+                return "No duplicate found.";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
         }
     }
 }
