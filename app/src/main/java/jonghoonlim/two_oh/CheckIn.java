@@ -31,7 +31,7 @@ import jonghoonlim.two_oh.dataStructures.Item;
 import jonghoonlim.two_oh.dataStructures.JSONParser;
 
 /**
- * Created by jhl2298 on 2/24/2016.
+ * Created by Jong Hoon Lim on 2/24/2016.
  */
 public class CheckIn extends Activity implements View.OnClickListener {
 
@@ -124,7 +124,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(CheckIn.this);
-            pDialog.setMessage("Loading inventory currently checked-in. Please wait...");
+            pDialog.setMessage("Loading inventory currently checked-out. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
@@ -169,7 +169,6 @@ public class CheckIn extends Activity implements View.OnClickListener {
                         if (checkedIn.equals("N"))
                             inventoryList.add(current);
                     }
-                    System.out.println("DEBUG ***** " + inventoryList);
                 }
 
             } catch (JSONException e) {

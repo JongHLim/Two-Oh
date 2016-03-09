@@ -68,8 +68,12 @@ public class JSONParser {
                 HttpGet httpGet = new HttpGet(url);
 
                 HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
+                StatusLine statusLine = httpResponse.getStatusLine();
+                int statusCode = statusLine.getStatusCode();
+                if (statusCode == 200) { // status okay
+                    HttpEntity httpEntity = httpResponse.getEntity();
+                    is = httpEntity.getContent();
+                }
             }
 
         } catch (UnsupportedEncodingException e) {
