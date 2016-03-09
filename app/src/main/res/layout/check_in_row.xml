@@ -84,9 +84,6 @@
             android:textStyle="bold"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
 
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/txt_operating_system"
@@ -97,16 +94,19 @@
                 android:textColor="@color/orange"
                 android:textSize="18sp"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Check-in"
-                android:id="@+id/row_check_in"
-                android:textColor="@color/orange"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-in"
+            android:id="@+id/row_check_in"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
 
 </LinearLayout>

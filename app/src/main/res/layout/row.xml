@@ -91,29 +91,31 @@
             android:textStyle="bold"
             android:textColor="@android:color/holo_blue_dark"
             android:textSize="18sp"/>
-        <RelativeLayout
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/txt_operating_system"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:padding="10dip"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:textSize="18sp"/>
 
-            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/txt_operating_system"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dip"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:textSize="18sp"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Check-out"
-                android:id="@+id/row_check_out"
-                android:textColor="@color/orange"
-                android:textStyle="bold"
-                android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-out"
+            android:id="@+id/row_check_out"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
+import jonghoonlim.two_oh.OldDataStructures.DatabaseHelper;
 
 
 /**

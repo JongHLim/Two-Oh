@@ -31,7 +31,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
     private final Context context;
     private final ArrayList<Item> itemsArrayList;
     private LayoutInflater mInflater;
-    private int layout;
+    private final int layout;
 
     private static final String NULL = "null";
     // JSON parser class
@@ -102,8 +102,9 @@ public class CustomAdapter extends ArrayAdapter<Item>
                 checkInBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        itemsArrayList.remove(position);
+                        Item checkedIn = itemsArrayList.remove(position);
                         notifyDataSetChanged();
+                        new ChangeInventoryStatus(checkedIn).execute();
                     }
                 });
                 break;
@@ -115,7 +116,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
                     public void onClick(View v) {
                         Item checkedOut = itemsArrayList.remove(position);
                         notifyDataSetChanged();
-                        new CheckOutInventory(checkedOut).execute();
+                        new ChangeInventoryStatus(checkedOut).execute();
                     }
                 });
                 break;
@@ -129,12 +130,12 @@ public class CustomAdapter extends ArrayAdapter<Item>
     /**
      * Background Async Task to check out inventory by making HTTP request
      * */
-    class CheckOutInventory extends AsyncTask<String, String, String> {
+    class ChangeInventoryStatus extends AsyncTask<String, String, String> {
 
         private Item item;
         private int success;
 
-        public CheckOutInventory(Item item) {
+        public ChangeInventoryStatus(Item item) {
             this.item = item;
         }
 
@@ -158,16 +159,26 @@ public class CustomAdapter extends ArrayAdapter<Item>
 
             params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_UT_TAG, item.getUtTag()));
 
-            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE, item.getCheckInDate()));
+            // check in date will never be null in check in
+            if (layout == R.layout.check_in_row)
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE, getDate()));
+            else
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_IN_DATE, item.getCheckInDate()));
 
             // check out date will never be null in check out
-            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE, getDate()));
+            if (layout == R.layout.row)
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE, getDate()));
+            else
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECK_OUT_DATE, item.getCheckOutDate()));
 
             params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_MACHINE_TYPE, item.getMachineType()));
 
             params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_OPERATING_SYSTEM, item.getOperatingSystem()));
 
-            params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECKED_IN, "N"));
+            if (layout == R.layout.row)
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECKED_IN, "N"));
+            else
+                params.add(new BasicNameValuePair(FeedReaderContract.FeedEntry.TAG_CHECKED_IN, "Y"));
 
             JSONObject json = jsonParser.makeHttpRequest(url_update_inventory,
                     "POST", params);
@@ -189,13 +200,24 @@ public class CustomAdapter extends ArrayAdapter<Item>
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Toast toast;
-            if (success == 1) {
-                toast = Toast.makeText(context, "Inventory with UTTAG Number of " +
-                        item.getUtTag() + " has been checked-out successfully.", Toast.LENGTH_SHORT);
-                toast.show();
+            if (layout == R.layout.row) {
+                if (success == 1) {
+                    toast = Toast.makeText(context, "Inventory with UTTAG Number of " +
+                            item.getUtTag() + " has been checked-out successfully.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    toast = Toast.makeText(context, "Check-out unsuccessful!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             } else {
-                toast = Toast.makeText(context, "Check-out unsuccessful!", Toast.LENGTH_SHORT);
-                toast.show();
+                if (success == 1) {
+                    toast = Toast.makeText(context, "Inventory with UTTAG Number of " +
+                            item.getUtTag() + " has been checked-in successfully.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    toast = Toast.makeText(context, "Check-in unsuccessful!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         }
     }

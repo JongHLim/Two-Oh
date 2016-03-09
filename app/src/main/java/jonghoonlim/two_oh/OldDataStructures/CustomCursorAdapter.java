@@ -10,14 +10,13 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import jonghoonlim.two_oh.R;
-import jonghoonlim.two_oh.dataStructures.DatabaseHelper;
 
 /**
  * Created by jhl2298 on 2/23/2016.
  */
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
-    private jonghoonlim.two_oh.dataStructures.DatabaseHelper mDbHelper;
+    private jonghoonlim.two_oh.OldDataStructures.DatabaseHelper mDbHelper;
     private int layoutId;
 
     public CustomCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
@@ -43,7 +42,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                     @Override
                     public void onClick(View v) {
                         int uttagNumber = -1;
-                        mDbHelper = new jonghoonlim.two_oh.dataStructures.DatabaseHelper(v.getContext());
+                        mDbHelper = new jonghoonlim.two_oh.OldDataStructures.DatabaseHelper(v.getContext());
                         try {
                             uttagNumber = Integer.parseInt(uttag.getText().toString());
                         } catch (NumberFormatException e) {
@@ -71,7 +70,7 @@ public class CustomCursorAdapter extends SimpleCursorAdapter {
                     @Override
                     public void onClick(View v) {
                         int uttagNumber = -1;
-                        mDbHelper = new DatabaseHelper(v.getContext());
+                        mDbHelper = new jonghoonlim.two_oh.OldDataStructures.DatabaseHelper(v.getContext());
                         try {
                             uttagNumber = Integer.parseInt(uttag.getText().toString());
                         } catch (NumberFormatException e) {
