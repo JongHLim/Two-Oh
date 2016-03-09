@@ -102,6 +102,12 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
                 String machineType = machineTypeInput.getText().toString();
                 String operatingSystem = operatingSystemInput.getText().toString();
 
+                if(checkInDate.equals("") && machineType.equals("") && operatingSystem.equals("") && utTag.equals("")) {
+                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Please input the inventory information.")
+                            .setNeutralButton("Close", null).show();
+                    break;
+                }
+
                 // run the duplicate checking background task
                 String output = "";
                 try {
@@ -113,15 +119,11 @@ public class AddNewInventory extends Activity implements View.OnClickListener {
                 catch (ExecutionException e) {
                     e.printStackTrace();
                 }
+
                 // the CheckDuplicate background task found a duplicate
                 if (output.equals("Duplicate found."))
                     new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Inventory with " +
                             "UTTAG number " + utTag + " already exists!")
-                            .setNeutralButton("Close", null).show();
-
-                // all fields are empty
-                else if(checkInDate.equals("") && machineType.equals("") && operatingSystem.equals("") && utTag.equals(""))
-                    new AlertDialog.Builder(this).setTitle("Failure!").setMessage("Please input the inventory information.")
                             .setNeutralButton("Close", null).show();
 
                 // error checking complete. Insert inventory through background task
