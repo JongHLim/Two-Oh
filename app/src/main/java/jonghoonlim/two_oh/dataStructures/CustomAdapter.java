@@ -40,13 +40,21 @@ public class CustomAdapter extends ArrayAdapter<Item>
     // url to update inventory
     private static final String url_update_inventory = "http://www.jonghoonlim.me/android_connect/update_inventory.php";
 
-    public CustomAdapter(Context context, int layout, ArrayList<Item> itemsArrayList) {
+    private ArrayList<Item> inventoryList;
+
+    public CustomAdapter(Context context, int layout, ArrayList<Item> itemsArrayList,
+        ArrayList<Item> inventoryList) {
         super(context, layout, itemsArrayList);
 
         this.context = context;
         this.itemsArrayList = itemsArrayList;
+        this.inventoryList = inventoryList;
         mInflater = LayoutInflater.from(context);
         this.layout = layout;
+    }
+
+    public ArrayList<Item> getInventoryList() {
+        return this.inventoryList;
     }
 
     public int getCount() {
@@ -103,6 +111,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
                     @Override
                     public void onClick(View v) {
                         Item checkedIn = itemsArrayList.remove(position);
+                        inventoryList.remove(checkedIn);
                         notifyDataSetChanged();
                         new ChangeInventoryStatus(checkedIn).execute();
                     }
@@ -115,6 +124,7 @@ public class CustomAdapter extends ArrayAdapter<Item>
                     @Override
                     public void onClick(View v) {
                         Item checkedOut = itemsArrayList.remove(position);
+                        inventoryList.remove(checkedOut);
                         notifyDataSetChanged();
                         new ChangeInventoryStatus(checkedOut).execute();
                     }

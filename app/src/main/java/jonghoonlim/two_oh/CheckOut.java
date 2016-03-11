@@ -91,8 +91,9 @@ public class CheckOut extends Activity implements View.OnClickListener {
                         temp.add(item);
                 }
                 Collections.sort(temp, new CustomComparator());
-                CustomAdapter filteredAdapter = new CustomAdapter(CheckOut.this, R.layout.row, temp);
+                CustomAdapter filteredAdapter = new CustomAdapter(CheckOut.this, R.layout.row, temp, inventoryList);
                 lv.setAdapter(filteredAdapter);
+                inventoryList = filteredAdapter.getInventoryList();
             }
 
             @Override
@@ -197,7 +198,7 @@ public class CheckOut extends Activity implements View.OnClickListener {
                     Collections.sort(inventoryList, new CustomComparator());
 
                     adapter = new CustomAdapter(
-                            CheckOut.this, R.layout.row, inventoryList); // populate the listview
+                            CheckOut.this, R.layout.row, inventoryList, inventoryList); // populate the listview
 
                     // updating listview
                     lv.setAdapter(adapter);

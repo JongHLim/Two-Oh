@@ -90,8 +90,9 @@ public class CheckIn extends Activity implements View.OnClickListener {
                         temp.add(item);
                 }
                 Collections.sort(temp, new CustomComparator());
-                CustomAdapter filteredAdapter = new CustomAdapter(CheckIn.this, R.layout.check_in_row, temp);
+                CustomAdapter filteredAdapter = new CustomAdapter(CheckIn.this, R.layout.check_in_row, temp, inventoryList);
                 lv.setAdapter(filteredAdapter);
+                inventoryList = filteredAdapter.getInventoryList();
             }
 
             @Override
@@ -195,7 +196,7 @@ public class CheckIn extends Activity implements View.OnClickListener {
                     Collections.sort(inventoryList, new CustomComparator());
 
                     adapter = new CustomAdapter(
-                            CheckIn.this, R.layout.check_in_row, inventoryList); // populate the listview
+                            CheckIn.this, R.layout.check_in_row, inventoryList, inventoryList); // populate the listview
 
                     // updating listview
                     lv.setAdapter(adapter);

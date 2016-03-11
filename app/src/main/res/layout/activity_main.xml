@@ -22,7 +22,7 @@
         android:layout_above="@+id/add_new_main"
         android:layout_centerHorizontal="true"
         android:textColor="@color/DarkBlue"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
         <Button
             android:layout_width="wrap_content"
